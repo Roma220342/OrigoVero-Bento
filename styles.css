@@ -236,7 +236,14 @@ textarea.field__control { min-height: 112px; }
   display: none; flex-direction: column; background: var(--card); color: var(--ink); overflow: hidden;
 }
 .lang-sheet[open] { display: flex; }
-.lang-sheet::backdrop { background: rgba(27, 27, 25, 0.45); }
+.lang-sheet::backdrop { background: rgba(27, 27, 25, 0.45); opacity: 0; transition: opacity 0.34s ease; }
+.lang-sheet.is-in::backdrop { opacity: 1; }
+.lang-sheet { transform: translateY(100%); transition: transform 0.34s cubic-bezier(0.22, 1, 0.36, 1); }
+.lang-sheet.is-in { transform: none; }
+.lang-sheet:focus { outline: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .lang-sheet, .lang-sheet::backdrop { transition: none; }
+}
 .lang-sheet__grabber { display: flex; justify-content: center; padding-bottom: 8px; }
 .lang-sheet__grabber span { width: 36px; height: 4px; border-radius: 2px; background: var(--line-strong); }
 .lang-sheet__head { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px 16px 24px; }

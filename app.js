@@ -66,10 +66,32 @@
     if (match) select(match, { persist: false });
   } catch (e) { /* storage may be blocked */ }
 
-  openBtn.addEventListener('click', () => sheet.showModal());
-  $('#lang-close').addEventListener('click', () => sheet.close());
-  sheet.addEventListener('click', (e) => { if (e.target === sheet) sheet.close(); }); // tap on the scrim
-  options.forEach((o) => o.addEventListener('click', () => { select(o); sheet.close(); }));
+  // The sheet slides up and the scrim fades in; closing plays the same motion backwards before the dialog is closed.
+  const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
+  sheet.setAttribute('tabindex', '-1'); // focus lands on the sheet itself, so no ring is drawn on the close button after a tap
+  let closing = false;
+  const openSheet = () => {
+    closing = false;
+    sheet.showModal();
+    sheet.focus({ preventScroll: true });
+    void sheet.offsetHeight; // commit the off-screen start position, then animate in
+    sheet.classList.add('is-in');
+  };
+  const closeSheet = () => {
+    if (!sheet.open || closing) return;
+    closing = true;
+    sheet.classList.remove('is-in');
+    const done = () => { if (!closing) return; closing = false; sheet.close(); };
+    if (reduceMotion()) { done(); return; }
+    sheet.addEventListener('transitionend', (e) => { if (e.target === sheet && e.propertyName === 'transform') done(); }, { once: true });
+    setTimeout(done, 450); // safety net if transitionend never fires
+  };
+  openBtn.addEventListener('click', openSheet);
+  $('#lang-close').addEventListener('click', closeSheet);
+  sheet.addEventListener('click', (e) => { if (e.target === sheet) closeSheet(); }); // tap on the scrim
+  sheet.addEventListener('cancel', (e) => { e.preventDefault(); closeSheet(); });     // Esc key
+  sheet.addEventListener('close', () => sheet.classList.remove('is-in'));
+  options.forEach((o) => o.addEventListener('click', () => { select(o); closeSheet(); }));
 
   /* ---------- Placeholder links ---------- */
   // The carbon footprint study has no URL in the data yet; keep the link from jumping to the top of the page.

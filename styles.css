@@ -101,9 +101,14 @@ main { display: grid; gap: var(--gap); padding: 16px var(--edge) 0; } /* 16px be
 .tab {
   position: relative; display: block; flex: none; white-space: nowrap; height: 100%; padding: 12px 0;
   font-size: 16px; line-height: 24px; font-weight: 500; color: var(--muted); text-decoration: none;
+  transition: color 0.2s ease;
 }
 .tab[aria-current="true"] { font-weight: 600; color: var(--ink); }
-.tab[aria-current="true"]::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: var(--gold); }
+.tab::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: var(--gold);
+  opacity: 0; transform: scaleX(0.4); transition: opacity 0.2s ease, transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.tab[aria-current="true"]::after { opacity: 1; transform: none; }
 
 /* ---------- Card primitives ---------- */
 .card { background: var(--card); border-radius: var(--r-card); }
@@ -157,7 +162,7 @@ main { display: grid; gap: var(--gap); padding: 16px var(--edge) 0; } /* 16px be
 .step__top { display: flex; align-items: center; gap: 8px; }
 .step__stage { flex: 1; min-width: 0; font-size: 18px; line-height: 24px; font-weight: 600; overflow-wrap: anywhere; }
 .step__chevron { color: var(--ink); transition: transform .2s cubic-bezier(0.22, 1, 0.36, 1); }
-.step__content[open] .step__chevron { transform: rotate(180deg); }
+.step__content[open]:not(.is-closing) .step__chevron { transform: rotate(180deg); }
 .step__sub { font-size: 14px; line-height: 20px; color: var(--muted); }
 .step__panel { display: grid; gap: 12px; padding-top: 10px; } /* 2px content gap + 8px panel padding in Figma */
 .step__body { font-size: 16px; line-height: 24px; }
@@ -196,8 +201,8 @@ main { display: grid; gap: var(--gap); padding: 16px var(--edge) 0; } /* 16px be
 .faq__q { display: flex; align-items: center; gap: 12px; padding: 12px 0; font-size: 18px; line-height: 24px; font-weight: 600; letter-spacing: -0.01em; }
 .faq__q > span:first-child { flex: 1; }
 .faq__toggle { width: 44px; height: 44px; display: grid; place-items: center; flex: none; }
-.faq .i-minus, .faq[open] .i-plus { display: none; }
-.faq[open] .i-minus { display: block; }
+.faq .i-minus, .faq[open]:not(.is-closing) .i-plus { display: none; }
+.faq[open]:not(.is-closing) .i-minus { display: block; }
 .faq[open] { padding-bottom: 20px; }
 .faq__a { padding-right: 8px; font-size: 16px; line-height: 24px; color: var(--muted); }
 
@@ -261,3 +266,6 @@ textarea.field__control { min-height: 112px; }
 .lang__check { width: 22px; height: 22px; visibility: hidden; }
 .lang[aria-checked="true"] { background: var(--gold-200); font-weight: 600; }
 .lang[aria-checked="true"] .lang__check { visibility: visible; }
+
+/* ---------- Soft state changes ---------- */
+.icon-btn, .lang { transition: background-color 0.15s ease; }

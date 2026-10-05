@@ -46,6 +46,34 @@
   tabs.forEach((a) => a.addEventListener('click', () => markCurrent(a.dataset.target)));
   markCurrent();
 
+  /* ---------- Smooth expand and collapse (journey steps, FAQ) ---------- */
+  // The height of the <details> animates between its closed and open size and the panel fades.
+  // `open` stays set while closing, so the `.is-closing` class carries the closed look (chevron, plus/minus) at once.
+  const EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
+  const toggleDetails = (d) => {
+    const panel = d.querySelector('summary').nextElementSibling;
+    if (d._anim) d._anim.cancel();
+    if (panel) panel.getAnimations().forEach((x) => x.cancel());
+    const opening = !d.open;
+    const start = d.getBoundingClientRect().height;
+    let end;
+    if (opening) { d.open = true; end = d.getBoundingClientRect().height; }
+    else { d.open = false; end = d.getBoundingClientRect().height; d.open = true; } // measure closed, then keep it open while animating
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches || start === end) { d.open = opening; d.classList.remove('is-closing'); return; }
+    d.classList.toggle('is-closing', !opening);
+    d.style.overflow = 'hidden';
+    const grow = d.animate({ height: [start + 'px', end + 'px'] }, { duration: opening ? 340 : 280, easing: EASE });
+    if (panel) panel.animate({ opacity: opening ? [0, 1] : [1, 0] }, { duration: opening ? 260 : 160, delay: opening ? 70 : 0, easing: 'ease-out', fill: 'both' });
+    d._anim = grow;
+    const finish = () => { if (d._anim !== grow) return; d._anim = null; d.open = opening; d.classList.remove('is-closing'); d.style.overflow = ''; grow.cancel(); if (panel) panel.getAnimations().forEach((x) => x.cancel()); };
+    grow.onfinish = finish;
+    setTimeout(finish, (opening ? 340 : 280) + 80); // safety net if the animation never reports finished (hidden tab)
+    grow.oncancel = () => { if (d._anim === grow) { d._anim = null; d.style.overflow = ''; } };
+  };
+  $$('details.step__content, details.faq').forEach((d) => {
+    d.querySelector('summary').addEventListener('click', (e) => { e.preventDefault(); toggleDetails(d); });
+  });
+
   /* ---------- Language sheet ---------- */
   // UI only: the page copy is not translated in this demo, so <html lang> is left alone.
   const sheet = $('#lang-sheet');

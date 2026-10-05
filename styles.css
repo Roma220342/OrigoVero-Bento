@@ -171,9 +171,8 @@ main { display: grid; gap: var(--gap); padding: 16px var(--edge) 0; } /* 16px be
 .step__more { font-size: 14px; line-height: 20px; background: var(--field); padding: 10px 14px; border-radius: var(--r-field); }
 .step__product { font-size: 16px; line-height: 24px; font-weight: 500; }
 
-.link { text-decoration: underline; text-decoration-color: var(--gold); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.link { text-decoration: underline; text-underline-offset: 3px; } /* text, space and arrow glyph are one underlined link, in the text colour */
 .link:active { color: var(--muted); }
-.link__icon { width: 16px; height: 16px; margin-left: 4px; vertical-align: -2px; } /* says "this leaves the page"; icons are not underlined */
 .nowrap { white-space: nowrap; }
 
 /* ---------- Impact (558) ---------- */

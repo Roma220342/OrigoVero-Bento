@@ -14,7 +14,7 @@
   --muted-on-ink: #b4b3ac;
   --canvas: #ecebe7;
   --card: #ffffff;
-  --field: #f2f1ee;
+  --field: #fbfaf9;
   --line: #e4e4e0;
   --line-strong: #bfbfba;
   --alert: #a8322b;
@@ -169,6 +169,7 @@ main { display: grid; gap: var(--gap); padding: 16px var(--edge) 0; } /* 16px be
 .step__panel { display: grid; gap: 12px; padding-top: 10px; } /* 2px content gap + 8px panel padding in Figma */
 .step__body { font-size: 16px; line-height: 24px; }
 .step__more { font-size: 14px; line-height: 20px; background: var(--field); padding: 10px 14px; border-radius: var(--r-field); }
+.step__product { font-size: 16px; line-height: 24px; font-weight: 500; }
 
 .link { text-decoration: underline; text-decoration-color: var(--gold); text-decoration-thickness: 2px; text-underline-offset: 3px; }
 .link:active { color: var(--muted); }
@@ -190,6 +191,11 @@ main { display: grid; gap: var(--gap); padding: 16px var(--edge) 0; } /* 16px be
 .kv__row + .kv__row { border-top: 1px solid var(--line); }
 .kv dt { font-size: 14px; line-height: 20px; color: var(--muted); overflow-wrap: anywhere; }
 .kv dd { min-width: 0; font-size: 16px; line-height: 24px; overflow-wrap: anywhere; }
+.kv__row--parts { grid-template-columns: 1fr auto; gap: 4px 16px; }
+.kv__row--parts dd:first-of-type { text-align: right; }
+.kv__row--parts dt { font-size: 14px; line-height: 20px; }
+.kv__part { grid-column: 1 / -1; display: flex; justify-content: space-between; gap: 16px; padding-left: 16px; }
+.kv__part span:first-child { font-size: 14px; line-height: 20px; color: var(--muted); }
 
 /* ---------- Care (244) ---------- */
 .note { padding: var(--pad); display: grid; gap: 12px; }

@@ -33,12 +33,13 @@ Open `http://localhost:8771` and use a 402 px wide viewport (the Figma frame wid
 | `State of health` (soft gold card) | `.fact` |
 | `Timeline` card with `Step / …` rows (rail, date, stage, place, panel) | `.timeline`, `.step` with a `<details>` per step; the current step has the gold dot with halo |
 | `Stat / Carbon footprint` (ink card) | `.carbon` |
+| Recycled-lithium row with its two parts | `.kv__row--parts` |
 | `Key-value` cards | `.kv` (128 px label column) |
 | `Note`, FAQ cards, `Form` | `.note`, `.faq`, `.form` |
 | `Language sheet` (640 px, rounded top, list of 11 languages, scrim 45 %) | `<dialog class="lang-sheet">` |
 | Interaction states sheet | `:active` (pressed: gold 50 tint, button darkens), `.btn[aria-busy]` (loading), `.is-invalid` (error), `:focus` on fields (editing) |
 
-Heights were checked against Figma: header 112, hero card 462, state of health 208, Journey 930, carbon card 140,
+Heights were checked against Figma: header 112, hero card 462, state of health 208, Journey 874, carbon card 140,
 Care 244, Good to know 384, Report 592, footer 40. Impact and Specifications measure 1–2 px short in browsers that draw 1 px borders thinner than 1 px.
 
 ## Behaviour

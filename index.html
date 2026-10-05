@@ -44,9 +44,9 @@
       <nav class="tabs" aria-label="Sections">
         <ul class="tabs__scroll" id="tabs-scroll">
           <li><a class="tab" href="#top" data-target="top" aria-current="true">Overview</a></li>
-          <li><a class="tab" href="#journey" data-target="journey">Journey</a></li>
-          <li><a class="tab" href="#impact" data-target="impact">Impact</a></li>
           <li><a class="tab" href="#specs" data-target="specs">Specifications</a></li>
+          <li><a class="tab" href="#impact" data-target="impact">Impact</a></li>
+          <li><a class="tab" href="#journey" data-target="journey">Journey</a></li>
           <li><a class="tab" href="#care" data-target="care">Care and end of life</a></li>
           <li><a class="tab" href="#faq" data-target="faq">Good to know</a></li>
           <li><a class="tab" href="#report" data-target="report">Report an issue</a></li>
@@ -83,6 +83,37 @@
         <p class="fact__figure">82%</p>
         <p class="fact__text">State of health, no thermal events</p>
         <p class="fact__date">Logged 16 Jun 2026</p>
+      </section>
+
+      <!-- Specifications (840) -->
+      <section class="section" id="specs" aria-labelledby="specs-title">
+        <div class="section__head"><h2 class="section__title" id="specs-title">Specifications</h2></div>
+        <dl class="card kv">
+          <div class="kv__row"><dt>Battery type</dt><dd>Electric vehicle</dd></div>
+          <div class="kv__row"><dt>Rated capacity</dt><dd>187.5 Ah, 75 kWh</dd></div>
+          <div class="kv__row"><dt>Chemistry</dt><dd>LiFePO₄ cells. Nominal 75 kWh at 400.0 V</dd></div>
+          <div class="kv__row"><dt>Expected lifetime</dt><dd>3000 charge cycles, 12.0 years</dd></div>
+          <div class="kv__row"><dt>Warranty</dt><dd>96 months</dd></div>
+          <div class="kv__row"><dt>Manufacturer &amp; origin</dt><dd>OrigoEV AB, Skellefteå, Sweden</dd></div>
+          <div class="kv__row"><dt>User-replaceable</dt><dd>No</dd></div>
+          <div class="kv__row"><dt>Removable by independent repairer</dt><dd>Yes</dd></div>
+          <div class="kv__row"><dt>Category</dt><dd>Electric Vehicle. Regulated under EU Battery Regulation 2023/1542, separate digital passport regime from ESPR</dd></div>
+        </dl>
+      </section>
+
+      <!-- Impact (558) -->
+      <section class="section" id="impact" aria-labelledby="impact-title">
+        <div class="section__head"><h2 class="section__title" id="impact-title">Impact</h2></div>
+        <div class="card card--ink carbon">
+          <div class="carbon__top"><p class="carbon__label">Carbon footprint</p><p class="carbon__rating">Rating B</p></div>
+          <p class="carbon__figure"><span class="carbon__value">58</span><span class="carbon__unit">kg CO₂e per kWh</span></p>
+        </div>
+        <dl class="card kv">
+          <div class="kv__row"><dt>Recycled materials: lithium</dt><dd>6%<br>From factory offcuts: lithium 2%. From recycled products: lithium 4%</dd></div>
+          <div class="kv__row"><dt>Renewable materials</dt><dd>3%</dd></div>
+          <div class="kv__row"><dt>Carbon footprint study</dt><dd><!-- TODO: the brand has not supplied the study URL; until then the link does nothing (see app.js) -->
+            <a class="link" href="#" data-todo="carbon-study-url">Read the carbon footprint <span class="nowrap">study<svg class="icon link__icon" aria-hidden="true"><use href="#i-ext"/></svg></span></a></dd></div>
+        </dl>
       </section>
 
       <!-- Journey (930): timeline in one card -->
@@ -168,37 +199,6 @@
             </details>
           </li>
         </ol>
-      </section>
-
-      <!-- Impact (558) -->
-      <section class="section" id="impact" aria-labelledby="impact-title">
-        <div class="section__head"><h2 class="section__title" id="impact-title">Impact</h2></div>
-        <div class="card card--ink carbon">
-          <div class="carbon__top"><p class="carbon__label">Carbon footprint</p><p class="carbon__rating">Rating B</p></div>
-          <p class="carbon__figure"><span class="carbon__value">58</span><span class="carbon__unit">kg CO₂e per kWh</span></p>
-        </div>
-        <dl class="card kv">
-          <div class="kv__row"><dt>Recycled materials: lithium</dt><dd>6%<br>From factory offcuts: lithium 2%. From recycled products: lithium 4%</dd></div>
-          <div class="kv__row"><dt>Renewable materials</dt><dd>3%</dd></div>
-          <div class="kv__row"><dt>Carbon footprint study</dt><dd><!-- TODO: the brand has not supplied the study URL; until then the link does nothing (see app.js) -->
-            <a class="link" href="#" data-todo="carbon-study-url">Read the carbon footprint <span class="nowrap">study<svg class="icon link__icon" aria-hidden="true"><use href="#i-ext"/></svg></span></a></dd></div>
-        </dl>
-      </section>
-
-      <!-- Specifications (840) -->
-      <section class="section" id="specs" aria-labelledby="specs-title">
-        <div class="section__head"><h2 class="section__title" id="specs-title">Specifications</h2></div>
-        <dl class="card kv">
-          <div class="kv__row"><dt>Battery type</dt><dd>Electric vehicle</dd></div>
-          <div class="kv__row"><dt>Rated capacity</dt><dd>187.5 Ah, 75 kWh</dd></div>
-          <div class="kv__row"><dt>Chemistry</dt><dd>LiFePO₄ cells. Nominal 75 kWh at 400.0 V</dd></div>
-          <div class="kv__row"><dt>Expected lifetime</dt><dd>3000 charge cycles, 12.0 years</dd></div>
-          <div class="kv__row"><dt>Warranty</dt><dd>96 months</dd></div>
-          <div class="kv__row"><dt>Manufacturer &amp; origin</dt><dd>OrigoEV AB, Skellefteå, Sweden</dd></div>
-          <div class="kv__row"><dt>User-replaceable</dt><dd>No</dd></div>
-          <div class="kv__row"><dt>Removable by independent repairer</dt><dd>Yes</dd></div>
-          <div class="kv__row"><dt>Category</dt><dd>Electric Vehicle. Regulated under EU Battery Regulation 2023/1542, separate digital passport regime from ESPR</dd></div>
-        </dl>
       </section>
 
       <!-- Care and end of life (244) -->

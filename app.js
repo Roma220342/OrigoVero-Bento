@@ -12,6 +12,8 @@
   const LINE = 112 + 16;
   const currentSection = () => {
     let current = 'top';
+    // At the very bottom the last section can never reach the top line, so it counts as current.
+    if (innerHeight + scrollY >= document.documentElement.scrollHeight - 2) return sectionIds[sectionIds.length - 1];
     for (const id of sectionIds) {
       if (id === 'top') continue;
       const el = document.getElementById(id);
@@ -37,13 +39,23 @@
     }
   };
   let ticking = false;
+  // After a tap the page scrolls smoothly past other sections. The tapped tab is held until the scroll settles,
+  // so the strip does not flicker through every section on the way.
+  let held = null;
+  let holdTimer = null;
+  const release = () => { held = null; markCurrent(); };
+  const hold = (target) => { held = target; clearTimeout(holdTimer); holdTimer = setTimeout(release, 250); };
   addEventListener('scroll', () => {
+    if (held) { clearTimeout(holdTimer); holdTimer = setTimeout(release, 160); return; }
     if (ticking) return;
     ticking = true;
     requestAnimationFrame(() => { ticking = false; markCurrent(); });
   }, { passive: true });
   addEventListener('resize', () => markCurrent());
-  tabs.forEach((a) => a.addEventListener('click', () => markCurrent(a.dataset.target)));
+  tabs.forEach((a) => {
+    a.dataset.text = a.textContent; // lets CSS reserve the bold width, so the active tab never changes the strip width
+    a.addEventListener('click', () => { hold(a.dataset.target); markCurrent(a.dataset.target); });
+  });
   markCurrent();
 
   /* ---------- Smooth expand and collapse (journey steps, FAQ) ---------- */
@@ -120,6 +132,40 @@
   sheet.addEventListener('cancel', (e) => { e.preventDefault(); closeSheet(); });     // Esc key
   sheet.addEventListener('close', () => sheet.classList.remove('is-in'));
   options.forEach((o) => o.addEventListener('click', () => { select(o); closeSheet(); }));
+
+  // Swipe down on the sheet to dismiss it: it follows the finger, then either flies out or springs back.
+  // A swipe that starts inside a scrolled list scrolls the list instead.
+  const list = $('#lang-list');
+  let drag = null;
+  sheet.addEventListener('touchstart', (e) => {
+    if (e.touches.length !== 1 || closing) return;
+    drag = { y: e.touches[0].clientY, t: performance.now(), dy: 0, active: false, inList: !!e.target.closest('.lang-list') };
+  }, { passive: true });
+  sheet.addEventListener('touchmove', (e) => {
+    if (!drag) return;
+    const dy = e.touches[0].clientY - drag.y;
+    if (!drag.active) {
+      if (dy < -4 || (drag.inList && list.scrollTop > 0)) { drag = null; return; }  // scrolling up, or the list has its own scroll
+      if (dy <= 4) return;
+      drag.active = true;
+      sheet.style.transition = 'none';
+    }
+    e.preventDefault();
+    drag.dy = Math.max(0, dy);
+    sheet.style.transform = 'translateY(' + drag.dy + 'px)';
+  }, { passive: false });
+  const endDrag = () => {
+    if (!drag) return;
+    const d = drag;
+    drag = null;
+    if (!d.active) return;
+    const speed = d.dy / Math.max(1, performance.now() - d.t); // px per ms
+    sheet.style.transition = '';
+    sheet.style.transform = '';
+    if (d.dy > 110 || (d.dy > 40 && speed > 0.55)) closeSheet(); // the CSS transition continues from where the finger let go
+  };
+  sheet.addEventListener('touchend', endDrag);
+  sheet.addEventListener('touchcancel', endDrag);
 
   /* ---------- Placeholder links ---------- */
   // The carbon footprint study has no URL in the data yet; keep the link from jumping to the top of the page.

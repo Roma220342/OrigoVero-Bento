@@ -104,6 +104,8 @@ main { display: grid; gap: var(--gap); padding: 16px var(--edge) 0; } /* 16px be
   transition: color 0.2s ease;
 }
 .tab[aria-current="true"] { font-weight: 600; color: var(--ink); }
+/* The bold width is reserved invisibly, so switching the active tab does not move the others. */
+.tab::before { content: attr(data-text); display: block; height: 0; overflow: hidden; visibility: hidden; font-weight: 600; }
 .tab::after {
   content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: var(--gold);
   opacity: 0; transform: scaleX(0.4); transition: opacity 0.2s ease, transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
@@ -246,6 +248,7 @@ textarea.field__control { min-height: 112px; }
 .lang-sheet { transform: translateY(100%); transition: transform 0.34s cubic-bezier(0.22, 1, 0.36, 1); }
 .lang-sheet.is-in { transform: none; }
 .lang-sheet:focus { outline: 0; }
+.lang-sheet, .lang-list { overscroll-behavior: contain; }
 @media (prefers-reduced-motion: reduce) {
   .lang-sheet, .lang-sheet::backdrop { transition: none; }
 }

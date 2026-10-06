@@ -127,6 +127,7 @@ main { display: grid; gap: var(--gap); padding: 16px var(--edge) 0; } /* 16px be
 .meta { display: grid; gap: 8px; }
 .meta__row { display: flex; flex-wrap: wrap; gap: 0 20px; }
 .meta__item { display: flex; align-items: center; gap: 4px; font-size: 14px; line-height: 20px; color: var(--muted-on-ink); }
+.meta__item--verified { font-weight: 500; color: var(--ink); }
 
 /* ---------- State of health (208) ---------- */
 .fact { padding: var(--pad); display: grid; gap: 4px; }

@@ -40,7 +40,7 @@ Open `http://localhost:8771` and use a 402 px wide viewport (the Figma frame wid
 | Interaction states sheet | `:active` (pressed: gold 50 tint, button darkens), `.btn[aria-busy]` (loading), `.is-invalid` (error), `:focus` on fields (editing) |
 
 Heights were checked against Figma: header 112, hero card 462, state of health 208, Journey 960, carbon card 140,
-Care 244, Good to know 384, Report 592, footer 40. Impact and Specifications measure 1–2 px short in browsers that draw 1 px borders thinner than 1 px.
+Care 824, Specifications 1278, Good to know 384, Report 592, footer 40. Impact and Specifications measure 1–2 px short in browsers that draw 1 px borders thinner than 1 px.
 
 ## Behaviour
 
@@ -56,7 +56,7 @@ Saturated gold marks actions and markers (button, tab rule, timeline dot); the s
 
 - **Keyboard focus ring** (2 px ink) is kept for accessibility, although the Figma state sheet does not draw it.
 - **Header is sticky**; Figma frames are static.
-- **Carbon footprint study** is drawn as a link with an arrow (↗), as in Figma, but there is no URL for it in the data: the link does nothing until the brand supplies one (`data-todo="carbon-study-url"` in `index.html`).
+- **Carbon footprint study** and the three documents in Care link to the PDFs on origovero.com and open in a new tab.
 - **Link arrows** are SVG icons instead of the ↗ text glyph, so they look the same in every browser.
 - **Photo** is hot-linked from origovero.com; replace it with a local asset.
 - **Report form** has no backend. Submit simulates the loading state, then shows a confirmation.

@@ -204,6 +204,7 @@ main { display: grid; gap: var(--gap); padding: 16px var(--edge) 0; } /* 16px be
 /* ---------- Care (244) ---------- */
 .note { padding: var(--pad); display: grid; gap: 12px; }
 .note__title { font-size: 24px; line-height: 28px; font-weight: 600; letter-spacing: -0.025em; }
+.group { margin: 0; font-size: 20px; line-height: 28px; font-weight: 600; letter-spacing: -0.02em; }
 .note__text { font-size: 16px; line-height: 24px; color: var(--muted); }
 
 /* ---------- FAQ (384) ---------- */

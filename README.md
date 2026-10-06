@@ -39,7 +39,7 @@ Open `http://localhost:8771` and use a 402 px wide viewport (the Figma frame wid
 | `Language sheet` (640 px, rounded top, list of 11 languages, scrim 45 %) | `<dialog class="lang-sheet">` |
 | Interaction states sheet | `:active` (pressed: gold 50 tint, button darkens), `.btn[aria-busy]` (loading), `.is-invalid` (error), `:focus` on fields (editing) |
 
-Heights were checked against Figma: header 112, hero card 462, state of health 208, Journey 874, carbon card 140,
+Heights were checked against Figma: header 112, hero card 462, state of health 208, Journey 960, carbon card 140,
 Care 244, Good to know 384, Report 592, footer 40. Impact and Specifications measure 1–2 px short in browsers that draw 1 px borders thinner than 1 px.
 
 ## Behaviour
